@@ -70,9 +70,7 @@
   (* speed (/ (* (Math/sin angle) Math/PI) 180)))
 
 (defn move! [shape f]
-  (let [pos (:pos shape)
-        ;_ (.log js/console (:x @pos) (:y @pos))
-        ]
+  (let [pos (:pos shape)]
     (swap! pos (fn [xy]
                  (-> xy
                      (update-in [:x] #(f % (calculate-x (shape-angle shape))))
@@ -85,7 +83,6 @@
   (move! shape -))
 
 (defn rotate! [shape f]
-  (.log js/console "rotating")
   (swap! (:angle shape) #(f % (/ (/ Math/PI 3) 20))))
 
 (defn rotate-right! [shape]
@@ -100,5 +97,4 @@
                          (shape-y ship)
                          (shape-angle ship))
         bullet (make-bullet-entity monet-canvas entity-key data)]
-    (.log js/console "firing" (str entity-key) (shape-x data) (shape-y data) (shape-angle data))
     (canvas/add-entity monet-canvas entity-key bullet)))
