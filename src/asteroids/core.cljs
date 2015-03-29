@@ -39,7 +39,7 @@
 (def active-keys-stream
   (->> (r/merge (keydown-stream) (keyup-stream))
        (r/reduce (fn [acc [event-type key-code]]
-                   (.log js/console (get {38 "UP" 39 "RIGHT" 40 "DOWN" 37 "LEFT" 32 "FIRE" 80 "PAUSE"} key-code))
+                   (.log js/console (get {38 "UP" 39 "RIGHT" 40 "DOWN" 37 "LEFT" 32 "FIRE" 80 "PAUSE"} key-code "IGNORED"))
                    (condp = event-type
                      ::down (conj acc key-code)
                      ::up (disj acc key-code)
